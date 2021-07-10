@@ -51,7 +51,7 @@ final class APICaller {
     private enum Endpoint: String {
         case search = "search"
         case topStories = "news"
-        case companyNews = "copmpany-news"
+        case companyNews = "company-news"
     }
     
     private enum APIError: Error {

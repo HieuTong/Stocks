@@ -5,6 +5,7 @@
 //  Created by HieuTong on 04/07/2021.
 //
 
+import SafariServices
 import UIKit
 
 class NewsViewController: UIViewController {
@@ -24,17 +25,7 @@ class NewsViewController: UIViewController {
 
     //MARK: Properties
 
-    private var stories: [NewsStory] = [
-        NewsStory(
-            category: "tech",
-            datetime: 123,
-            headline: "Some headline should go here!",
-            image: "",
-            related: "Related",
-            source: "CNBC",
-            summary: "",
-            url: "")
-    ]
+    private var stories = [NewsStory]()
 
     private let type: Type
 
@@ -75,11 +66,22 @@ class NewsViewController: UIViewController {
     }
 
     private func fetchNews() {
-
+        APICaller.shared.news(for: type) { [weak self] result in
+            switch result {
+            case .success(let newStories):
+                DispatchQueue.main.async {
+                    self?.stories = newStories
+                    self?.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     private func open(url: URL) {
-
+        let vc = SFSafariViewController(url: url)
+        present(vc, animated: true)
     }
 }
 
@@ -114,5 +116,17 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let story = stories[indexPath.row]
+        guard let url = URL(string: story.url) else {
+            presentFailedToOpenAlert()
+            return
+        }
+        open(url: url)
+    }
+
+    private func presentFailedToOpenAlert() {
+        let alert = UIAlertController(title: "Unable to Open", message: "We were unable to open the article", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+        present(alert, animated: true)
     }
 }
