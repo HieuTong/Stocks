@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class NewsStoryTableViewCell: UITableViewCell {
     static let identifier = "NewsStoryTableViewCell"
@@ -21,14 +22,15 @@ class NewsStoryTableViewCell: UITableViewCell {
         init(model: NewsStory) {
             self.source = model.source
             self.headline = model.headline
-            self.dateString = "Jun 21, 2021"
-            self.imageURL = nil
+            self.dateString = .string(from: model.datetime)
+            self.imageURL = URL(string: model.image)
         }
     }
 
     // Source
     private let sourceLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .secondaryLabel
         label.font = .systemFont(ofSize: 14, weight: .medium)
         return label
     }()
@@ -36,7 +38,9 @@ class NewsStoryTableViewCell: UITableViewCell {
     // Headline
     private let headlineLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .secondaryLabel
+        label.font = .systemFont(ofSize: 24, weight: .regular)
+        label.numberOfLines = 0
         return label
     }()
 
@@ -44,6 +48,7 @@ class NewsStoryTableViewCell: UITableViewCell {
 
     private let dateLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .secondaryLabel
         label.font = .systemFont(ofSize: 17, weight: .light)
         return label
     }()
@@ -51,6 +56,7 @@ class NewsStoryTableViewCell: UITableViewCell {
     // Image
     private let storyImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.backgroundColor = .tertiarySystemBackground
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 6
@@ -61,8 +67,8 @@ class NewsStoryTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .systemPink
-        backgroundColor = .systemPink
+        contentView.backgroundColor = .secondarySystemBackground
+        backgroundColor = .secondarySystemBackground
         addSubviews(sourceLabel, headlineLabel, dateLabel, storyImageView)
     }
 
@@ -72,6 +78,19 @@ class NewsStoryTableViewCell: UITableViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+
+        let imageSize: CGFloat = contentView.height - 6
+        storyImageView.frame = CGRect(x: contentView.width - imageSize - 10, y: 3, width: imageSize, height: imageSize)
+
+        //layout labels
+        let availableWith: CGFloat = contentView.width - separatorInset.left - imageSize - 15
+        dateLabel.frame = CGRect(x: separatorInset.left, y: contentView.height - 40, width: availableWith, height: 40)
+
+        sourceLabel.sizeToFit()
+        sourceLabel.frame = CGRect(x: separatorInset.left, y: 4, width: availableWith, height: sourceLabel.height)
+
+        headlineLabel.frame = CGRect(x: separatorInset.left, y: sourceLabel.bottom + 5, width: availableWith, height: contentView.height - sourceLabel.bottom - dateLabel.height - 10)
+
     }
 
     override func prepareForReuse() {
@@ -86,8 +105,10 @@ class NewsStoryTableViewCell: UITableViewCell {
         headlineLabel.text = viewModel.headline
         sourceLabel.text = viewModel.source
         dateLabel.text = viewModel.dateString
-        //image
-        
+        storyImageView.sd_setImage(with: viewModel.imageURL, completed: nil)
+
+        //manually set image
+        //storyImageView.setImage(with: viewModel.imageURL)
     }
 
 }
