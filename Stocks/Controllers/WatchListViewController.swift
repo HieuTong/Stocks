@@ -10,6 +10,17 @@ import UIKit
 
 class WatchListViewController: UIViewController {
     private var searchTimer: Timer?
+
+    ///Model
+    private var watchListMap: [String: [String]] = [:]
+
+    ///ViewModels
+    private var viewModels: [String] = []
+
+    private let tableView: UITableView = {
+        let table = UITableView()
+        return table
+    }()
     
     // MARK: - Lifecycle
 
@@ -18,11 +29,21 @@ class WatchListViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemBackground
         setupSearchController()
+        setupTableView()
+        setUpWatchlistData()
         setupFloatingPanel()
         setupTitleView()
     }
 
     // MARK: - Private
+
+    private func setUpWatchlistData() {
+        let symbols = PersistenceManager.shared.watchlist
+        for symbol in symbols {
+            //fetch market data per symbol
+            watchListMap[symbol] = ["some string"]
+        }
+    }
     
     private func setupSearchController() {
         let resultVC = SearchResultsViewController()
@@ -30,6 +51,12 @@ class WatchListViewController: UIViewController {
         let searchVC = UISearchController(searchResultsController: resultVC)
         searchVC.searchResultsUpdater = self
         navigationItem.searchController = searchVC
+    }
+
+    private func setupTableView() {
+        view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
     }
 
     private func setupFloatingPanel() {
@@ -99,4 +126,20 @@ extension WatchListViewController: FloatingPanelControllerDelegate {
     func floatingPanelDidChangeState(_ fpc: FloatingPanelController) {
         navigationItem.titleView?.isHidden = fpc.state == .full
     }
+}
+
+extension WatchListViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return watchListMap.count
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        // Open the detail for selection
+    }
+
 }
