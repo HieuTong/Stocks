@@ -42,7 +42,6 @@ class WatchListTableViewCell: UITableViewCell {
         label.font = .systemFont(ofSize: 15, weight: .regular)
         return label
     }()
-    // Minichart view
 
     // Price label
     private let priceLabel: UILabel = {
@@ -62,6 +61,7 @@ class WatchListTableViewCell: UITableViewCell {
         return label
     }()
 
+    // Minichart view
     private let miniChartView: StockChartView = {
         let chart = StockChartView()
         return chart
