@@ -25,6 +25,20 @@ class WatchListViewController: UIViewController {
         return table
     }()
     
+    private var observer: NSObjectProtocol?
+    
+    // MARK: - Private
+    private func setUpObserver() {
+        observer = NotificationCenter.default.addObserver(
+            forName: .didAddToWatchList,
+            object: nil,
+            queue: .main,
+            using: { [weak self] _ in
+                self?.viewModels.removeAll()
+                self?.fetchWatchlistData()
+            })
+    }
+    
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -36,6 +50,7 @@ class WatchListViewController: UIViewController {
         fetchWatchlistData()
         setupFloatingPanel()
         setupTitleView()
+        setUpObserver()
     }
 
     override func viewDidLayoutSubviews() {
@@ -49,7 +64,7 @@ class WatchListViewController: UIViewController {
         let symbols = PersistenceManager.shared.watchlist
         let group = DispatchGroup()
 
-        for symbol in symbols {
+        for symbol in symbols where watchListMap[symbol] == nil {
             group.enter()
             APICaller.shared.marketData(for: symbol) { [weak self] result in
                 defer {
@@ -128,7 +143,7 @@ class WatchListViewController: UIViewController {
     }
 
     private func setupFloatingPanel() {
-        let vc = NewsViewController(type: .company(symbol: "AAPL"))
+        let vc = NewsViewController(type: .topStories)
         let panel = FloatingPanelController(delegate: self)
         panel.surfaceView.backgroundColor = .secondarySystemBackground
         panel.set(contentViewController: vc)
@@ -183,10 +198,16 @@ extension WatchListViewController: SearchResultsViewControllerDelegate {
     func searchResultsViewControllerDidSelect(searchResult: SearchResult) {
         // Present stock details for given selection
         navigationItem.searchController?.searchBar.resignFirstResponder()
-        let vc = NewsViewController(type: .topStories)
+        let vc = StockDetailsViewController(
+            symbol: searchResult.symbol,
+            companyName: searchResult.description,
+            candleStickData: []
+        )
         let navVC = UINavigationController(rootViewController: vc)
         vc.title = searchResult.description
-        present(navVC, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.present(navVC, animated: true)
+        }
     }
 }
 
@@ -242,6 +263,11 @@ extension WatchListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         // Open the detail for selection
+        let model = viewModels[indexPath.row]
+        let vc = StockDetailsViewController(symbol: model.symbol, companyName: model.companyName, candleStickData: watchListMap[model.symbol] ?? [])
+        vc.title = model.companyName
+        let navVC = UINavigationController(rootViewController: vc)
+        present(navVC, animated: true)
     }
 }
 
