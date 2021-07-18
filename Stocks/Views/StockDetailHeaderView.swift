@@ -31,6 +31,7 @@ class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectionViewD
     override init(frame: CGRect) {
         super.init(frame: frame)
         clipsToBounds = true
+        addSubview(chartView)
         addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self

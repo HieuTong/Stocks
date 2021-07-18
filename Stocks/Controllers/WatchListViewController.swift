@@ -62,6 +62,9 @@ class WatchListViewController: UIViewController {
 
     private func fetchWatchlistData() {
         let symbols = PersistenceManager.shared.watchlist
+        
+        createPlaceholderViewModels()
+        
         let group = DispatchGroup()
 
         for symbol in symbols where watchListMap[symbol] == nil {
@@ -86,11 +89,28 @@ class WatchListViewController: UIViewController {
             self?.tableView.reloadData()
         }
     }
+    
+    private func createPlaceholderViewModels() {
+        let symbols = PersistenceManager.shared.watchlist
+        symbols.forEach { item in
+            viewModels.append(
+                .init(symbol: item,
+                      companyName: UserDefaults.standard.string(forKey: item) ?? "Company",
+                      price: "0.00",
+                      changeColor: .systemGreen,
+                      changePercentage: "0.00",
+                      chartViewModel: .init(data: [], showLegend: false, showAxisBool: false, fillColor: .clear))
+            )
+        }
+        
+        self.viewModels = viewModels.sorted(by: { $0.symbol < $1.symbol })
+        tableView.reloadData()
+    }
 
     private func createViewModels() {
         var viewModels = [WatchListTableViewCell.ViewModel]()
         for (symbol, candleSticks) in watchListMap {
-            let changePercentage = getChangePercentage(symbol: symbol, for: candleSticks)
+            let changePercentage = candleSticks.getPercentage()
             viewModels.append(.init(
                                 symbol: symbol,
                                 companyName: UserDefaults.standard.string(forKey: symbol) ?? "Company",
@@ -108,20 +128,7 @@ class WatchListViewController: UIViewController {
 
         print("\n\n \(viewModels) \n")
 
-        self.viewModels = viewModels
-    }
-
-    private func getChangePercentage(symbol: String, for data: [CandleStick]) -> Double {
-        let latestDate = data[0].date
-        guard let latestClose = data.first?.close,
-              let priorClose = data.first(where: {
-                !Calendar.current.isDate($0.date, inSameDayAs: latestDate)
-              })?.close else {
-            return 0.0
-        }
-
-        let diff = 1 - (priorClose / latestClose)
-        return diff
+        self.viewModels = viewModels.sorted(by: { $0.symbol < $1.symbol })
     }
 
     private func getLatestClosingPrice(data: [CandleStick]) -> String {

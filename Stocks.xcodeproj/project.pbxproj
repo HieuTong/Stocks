@@ -22,6 +22,7 @@
 		E70F7AA42691D0CB003AD1DB /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F7AA32691D0CB003AD1DB /* SearchResultTableViewCell.swift */; };
 		E70F7AA62691F6D5003AD1DB /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F7AA52691F6D5003AD1DB /* SearchResponse.swift */; };
 		E70F7AA82692061D003AD1DB /* StockDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F7AA72692061D003AD1DB /* StockDetailsViewController.swift */; };
+		E757830226A42423009AD1F1 /* StocksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E757830126A42423009AD1F1 /* StocksTests.swift */; };
 		E7855A5926A32C69004FA062 /* FinacialMetricsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7855A5826A32C69004FA062 /* FinacialMetricsResponse.swift */; };
 		E7855A5B26A3340C004FA062 /* StockDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7855A5A26A3340C004FA062 /* StockDetailHeaderView.swift */; };
 		E7855A5D26A34136004FA062 /* MetricCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7855A5C26A34136004FA062 /* MetricCollectionViewCell.swift */; };
@@ -32,6 +33,16 @@
 		E78E8477269AC765008B859E /* WatchListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78E8476269AC765008B859E /* WatchListTableViewCell.swift */; };
 		E78E8479269AD63E008B859E /* StockChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78E8478269AD63E008B859E /* StockChartView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E757830426A42423009AD1F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E70F7A732691AFE7003AD1DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E70F7A7A2691AFE7003AD1DB;
+			remoteInfo = Stocks;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		14ECE37CBC7AD09CDFE31760 /* Pods-Stocks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stocks.release.xcconfig"; path = "Target Support Files/Pods-Stocks/Pods-Stocks.release.xcconfig"; sourceTree = "<group>"; };
@@ -53,6 +64,9 @@
 		E70F7AA32691D0CB003AD1DB /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		E70F7AA52691F6D5003AD1DB /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		E70F7AA72692061D003AD1DB /* StockDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailsViewController.swift; sourceTree = "<group>"; };
+		E75782FF26A42423009AD1F1 /* StocksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StocksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E757830126A42423009AD1F1 /* StocksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksTests.swift; sourceTree = "<group>"; };
+		E757830326A42423009AD1F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7855A5826A32C69004FA062 /* FinacialMetricsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinacialMetricsResponse.swift; sourceTree = "<group>"; };
 		E7855A5A26A3340C004FA062 /* StockDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailHeaderView.swift; sourceTree = "<group>"; };
 		E7855A5C26A34136004FA062 /* MetricCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -70,6 +84,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				88D592F3658655245BD8A81D /* Pods_Stocks.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E75782FC26A42423009AD1F1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				E70F7A7D2691AFE7003AD1DB /* Stocks */,
+				E757830026A42423009AD1F1 /* StocksTests */,
 				E70F7A7C2691AFE7003AD1DB /* Products */,
 				1A41E20A5274CC44AA97E074 /* Pods */,
 				2563953C67AAAE74EACC6FE9 /* Frameworks */,
@@ -107,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				E70F7A7B2691AFE7003AD1DB /* Stocks.app */,
+				E75782FF26A42423009AD1F1 /* StocksTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -182,6 +205,15 @@
 			path = Other;
 			sourceTree = "<group>";
 		};
+		E757830026A42423009AD1F1 /* StocksTests */ = {
+			isa = PBXGroup;
+			children = (
+				E757830126A42423009AD1F1 /* StocksTests.swift */,
+				E757830326A42423009AD1F1 /* Info.plist */,
+			);
+			path = StocksTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -204,6 +236,24 @@
 			productReference = E70F7A7B2691AFE7003AD1DB /* Stocks.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E75782FE26A42423009AD1F1 /* StocksTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E757830826A42423009AD1F1 /* Build configuration list for PBXNativeTarget "StocksTests" */;
+			buildPhases = (
+				E75782FB26A42423009AD1F1 /* Sources */,
+				E75782FC26A42423009AD1F1 /* Frameworks */,
+				E75782FD26A42423009AD1F1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E757830526A42423009AD1F1 /* PBXTargetDependency */,
+			);
+			name = StocksTests;
+			productName = StocksTests;
+			productReference = E75782FF26A42423009AD1F1 /* StocksTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -215,6 +265,10 @@
 				TargetAttributes = {
 					E70F7A7A2691AFE7003AD1DB = {
 						CreatedOnToolsVersion = 12.5.1;
+					};
+					E75782FE26A42423009AD1F1 = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = E70F7A7A2691AFE7003AD1DB;
 					};
 				};
 			};
@@ -232,6 +286,7 @@
 			projectRoot = "";
 			targets = (
 				E70F7A7A2691AFE7003AD1DB /* Stocks */,
+				E75782FE26A42423009AD1F1 /* StocksTests */,
 			);
 		};
 /* End PBXProject section */
@@ -243,6 +298,13 @@
 			files = (
 				E70F7A8B2691AFEB003AD1DB /* LaunchScreen.storyboard in Resources */,
 				E70F7A882691AFEB003AD1DB /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E75782FD26A42423009AD1F1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +381,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E75782FB26A42423009AD1F1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E757830226A42423009AD1F1 /* StocksTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E757830526A42423009AD1F1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E70F7A7A2691AFE7003AD1DB /* Stocks */;
+			targetProxy = E757830426A42423009AD1F1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E70F7A892691AFEB003AD1DB /* LaunchScreen.storyboard */ = {
@@ -489,6 +567,44 @@
 			};
 			name = Release;
 		};
+		E757830626A42423009AD1F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = StocksTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.HieuTong.StocksTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Stocks.app/Stocks";
+			};
+			name = Debug;
+		};
+		E757830726A42423009AD1F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = StocksTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.HieuTong.StocksTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Stocks.app/Stocks";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -506,6 +622,15 @@
 			buildConfigurations = (
 				E70F7A902691AFEB003AD1DB /* Debug */,
 				E70F7A912691AFEB003AD1DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E757830826A42423009AD1F1 /* Build configuration list for PBXNativeTarget "StocksTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E757830626A42423009AD1F1 /* Debug */,
+				E757830726A42423009AD1F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
