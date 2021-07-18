@@ -11,7 +11,10 @@ class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectionViewD
     
     private var metricViewModels: [MetricCollectionViewCell.ViewModel] = []
     // Chart View
-    private let chartView = StockChartView()
+    private let chartView: StockChartView = {
+        let chart = StockChartView()
+        return chart
+    }()
     
     // CollectionView
     private let collectionView: UICollectionView = {
@@ -47,7 +50,7 @@ class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectionViewD
         chartViewModel: StockChartView.ViewModel,
         metricViewModels: [MetricCollectionViewCell.ViewModel]
     ) {
-        
+        chartView.configure(with: chartViewModel)
         self.metricViewModels = metricViewModels
         collectionView.reloadData()
     }
@@ -70,5 +73,4 @@ class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: width / 2, height: 100 / 3)
     }
-    
 }

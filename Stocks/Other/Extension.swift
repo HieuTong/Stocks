@@ -11,11 +11,13 @@ import UIKit
 
 // MARK: - Notification
 extension Notification.Name {
+    /// Notification when  symbol gets added to watchlist
     static let didAddToWatchList = Notification.Name("didAddToWatchList")
 }
 
 //NumberFormatter
 extension NumberFormatter {
+    /// Formatter for percent style
     static let percentFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.locale = .current
@@ -24,6 +26,7 @@ extension NumberFormatter {
         return formatter
     }()
 
+    /// Formatter for decimal style
     static let decimalFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.locale = .current
@@ -36,6 +39,8 @@ extension NumberFormatter {
 // ImageView
 
 extension UIImageView {
+    /// Set image for remote url
+    /// - Parameter url: URL to fetch form
     func setImage(with url: URL?) {
         guard let url = url else {
             return
@@ -56,16 +61,25 @@ extension UIImageView {
 }
 
 extension String {
+    /// Create string from time interval
+    /// - Parameter timeInterval: Timeinterval since 1970
+    /// - Returns: Fommatted string
     static func string(from timeInterval: TimeInterval) -> String {
         let date = Date(timeIntervalSince1970: timeInterval)
         return DateFormatter.prettyDateFormmatter.string(from: date)
     }
-
+    
+    /// Percentage formatter string
+    /// - Parameter double: Double to format
+    /// - Returns: String percent format
     static func percentage(from double: Double) -> String {
         let formatter = NumberFormatter.percentFormatter
         return formatter.string(from: NSNumber(value: double)) ?? "\(double)"
     }
-
+    
+    /// Format number to string
+    /// - Parameter double: Number to form
+    /// - Returns: Formatted string
     static func formatted(from double: Double) -> String {
         let formatter = NumberFormatter.decimalFormatter
         return formatter.string(from: NSNumber(value: double)) ?? "\(double)"
@@ -91,6 +105,8 @@ extension DateFormatter {
 
 //MARK: - Add Subview
 extension UIView {
+    /// Add mutiples subviews
+    /// - Parameter views: Collection of subviews
     func addSubviews(_ views: UIView...) {
         views.forEach { view in
             addSubview(view)
@@ -101,26 +117,32 @@ extension UIView {
 // MARK: - Framing
 
 extension UIView {
+    /// Width of view
     var width: CGFloat {
         return frame.size.width
     }
     
+    /// Height of view
     var height: CGFloat {
         return frame.size.height
     }
     
+    /// Left edge of view
     var left: CGFloat {
         return frame.origin.x
     }
     
+    /// Right edge of view
     var right: CGFloat {
         return left + width
     }
     
+    /// Top edge of view
     var top: CGFloat {
         return frame.origin.y
     }
     
+    /// Bottom edge of view
     var bottom: CGFloat {
         return top + height
     }

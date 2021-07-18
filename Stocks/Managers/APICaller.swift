@@ -7,9 +7,12 @@
 
 import Foundation
 
+/// Object to mage api calls
 final class APICaller {
+    /// Singleton
     static let shared = APICaller()
     
+    /// Constants
     private struct Constants {
         static let apiKey = "c3grd4aad3i83du7hps0"
         static let sandboxApiKey = "sandbox_c3grd4aad3i83du7hpsg"
@@ -17,10 +20,15 @@ final class APICaller {
         static let day : TimeInterval = 3600 * 24
     }
     
+    /// Private constructor
     private init() {}
     
     //MARK: - Public
     
+    /// Search for a cpmpany
+    /// - Parameters:
+    ///   - query: Query string (symbol or name)
+    ///   - completion: Callback for result
     public func search(
         query: String,
         completion: @escaping (Result<SearchResponse, Error>) -> Void
@@ -30,7 +38,11 @@ final class APICaller {
     }
     
     //MARK: - Private
-
+    
+    /// Get news for type
+    /// - Parameters:
+    ///   - type: Company or top stories
+    ///   - completion: Result callback
     public func news(
         for type: NewsViewController.`Type`,
         completion: @escaping (Result<[NewsStory], Error>) -> Void
@@ -46,7 +58,12 @@ final class APICaller {
             request(url: url, expecting: [NewsStory].self, completion: completion)
         }
     }
-
+    
+    /// get market data
+    /// - Parameters:
+    ///   - symbol: Given symbol
+    ///   - numberOfDays: Number of days back from today
+    ///   - completion: Result callback
     public func marketData(for symbol: String, numberOfDays: TimeInterval = 7, completion: @escaping (Result<MarketDataResponse, Error>) -> Void) {
         let today = Date().addingTimeInterval(-(Constants.day))
         let prior = today.addingTimeInterval(-(Constants.day * numberOfDays))
