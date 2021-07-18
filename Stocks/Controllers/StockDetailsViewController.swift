@@ -199,6 +199,9 @@ extension StockDetailsViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let url = URL(string: stories[indexPath.row].url) else { return }
+        
+        HapticsManager.shared.vibrateForSelection()
+        
         let vc = SFSafariViewController(url: url)
         present(vc, animated: true, completion: nil)
     }
@@ -209,6 +212,8 @@ extension StockDetailsViewController: NewsHeaderViewDelegate {
         // Add to watchlist
         headerView.button.isHidden = true
         PersistenceManager.shared.addToWatchlist(symbol: symbol, companyName: companyName)
+        
+        HapticsManager.shared.vibrate(for: .success)
         
         let alert = UIAlertController(title: "Added to WatchLIST", message: "We're added \(companyName) to your watchlist", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))

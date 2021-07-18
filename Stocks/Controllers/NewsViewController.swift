@@ -87,6 +87,9 @@ class NewsViewController: UIViewController {
 
 extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        HapticsManager.shared.vibrateForSelection()
+
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsStoryTableViewCell.identifier, for: indexPath) as? NewsStoryTableViewCell else {
             return UITableViewCell()
         }
@@ -125,6 +128,8 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     private func presentFailedToOpenAlert() {
+        HapticsManager.shared.vibrate(for: .error)
+
         let alert = UIAlertController(title: "Unable to Open", message: "We were unable to open the article", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
         present(alert, animated: true)

@@ -200,6 +200,9 @@ extension WatchListViewController: UISearchResultsUpdating {
 
 extension WatchListViewController: SearchResultsViewControllerDelegate {
     func searchResultsViewControllerDidSelect(searchResult: SearchResult) {
+        
+        HapticsManager.shared.vibrateForSelection()
+        
         // Present stock details for given selection
         navigationItem.searchController?.searchBar.resignFirstResponder()
         let vc = StockDetailsViewController(
@@ -223,6 +226,9 @@ extension WatchListViewController: FloatingPanelControllerDelegate {
 
 extension WatchListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        HapticsManager.shared.vibrateForSelection()
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WatchListTableViewCell.identifier, for: indexPath) as? WatchListTableViewCell else {
             return UITableViewCell()
         }
